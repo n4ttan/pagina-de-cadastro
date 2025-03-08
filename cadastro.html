@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="imagens/Decor1.png" alt="Imagem do topo" class="topo">
+
+        <div class="login-box">
+            <h2>Cadastro</h2>
+            <p class="descricao">Página de cadastro feito com esboço no Figma 
+                para fins educacionais de UX/UI Design</p>
+
+            <form id="cadastro-form">
+                <label for="nome"><strong>Nome</strong></label>
+                <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+                <label for="sobrenome"><strong>Sobrenome</strong></label>
+                <input type="text" id="sobrenome" placeholder="Digite seu sobrenome" required>
+                
+                <label for="email"><strong>E-mail</strong></label>
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+
+                <label for="senha"><strong>Senha</strong></label>
+                <input type="password" id="senha" placeholder="Crie uma senha" required>
+
+                <label for="confirmar-senha"><strong>Confirme sua senha</strong></label>
+                <input type="password" id="confirmar-senha" placeholder="Repita sua senha" required>
+
+                <p class="aviso">
+                    Ao usar o site, você atesta que é maior de 18 anos e  
+                    está de acordo com a <a href="#">Política de Privacidade.</a>
+                </p>
+                
+                <button type="submit" class="botao-verde">Continuar</button>
+            </form>
+        </div>
+
+        <img src="imagens/Logotipo.png" alt="Logotipo" class="logotipo">
+        
+        <img src="imagens/logo2.jpg" alt="logo2" class="logo2">
+        <img src="imagens/final.jpg" alt="final" class="final">
+    </div>
+
+    <script>
+        document.getElementById('cadastro-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const sobrenome = document.getElementById('sobrenome').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = document.getElementById('confirmar-senha').value;
+
+            if (senha !== confirmarSenha) {
+                alert('As senhas não coincidem. Tente novamente.');
+                return;
+            }
+
+            localStorage.setItem('nome', nome);
+            localStorage.setItem('sobrenome', sobrenome);
+            localStorage.setItem('email', email);
+            localStorage.setItem('senha', senha);
+
+            alert('Cadastro realizado com sucesso!');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

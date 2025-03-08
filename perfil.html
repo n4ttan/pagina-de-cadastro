@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="imagens/Decor1.png" alt="Imagem do topo" class="topo">
+
+        <div class="login-box">
+            <h2>Perfil</h2>
+
+            <form id="perfil-form">
+                <br>
+                <label for="foto"><strong>Foto de Perfil</strong></label>
+                <input type="file" id="foto" accept="image/*">
+                <img id="preview" src="" alt="Pré-visualização da foto" class="foto-perfil">
+                <div id="perfil-dados"></div>
+                <br><br>
+                <label for="endereco"><strong>Endereço</strong></label>
+                <input type="text" id="endereco" placeholder="Digite seu endereço" required>
+
+                <label for="telefone"><strong>Telefone</strong></label>
+                <input type="tel" id="telefone" placeholder="Digite seu telefone" required>
+
+                <button type="submit" class="botao-verde">Salvar</button>
+                <button type="button" id="sair" class="botao-vermelho">Sair</button>
+            </form>
+        </div>
+
+        <img src="imagens/Logotipo.png" alt="Logotipo" class="logotipo">
+        
+        <img src="imagens/logo2.jpg" alt="logo2" class="logo2">
+        <img src="imagens/final.jpg" alt="final" class="final">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const nome = localStorage.getItem('nome');
+            const sobrenome = localStorage.getItem('sobrenome');
+            const email = localStorage.getItem('email');
+            const endereco = localStorage.getItem('endereco');
+            const telefone = localStorage.getItem('telefone');
+            const foto = localStorage.getItem('foto');
+
+            document.getElementById('perfil-dados').innerHTML = `
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Sobrenome:</strong> ${sobrenome}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Endereço:</strong> ${endereco || ''}</p>
+                <p><strong>Telefone:</strong> ${telefone || ''}</p>
+            `;
+
+            if (foto) {
+                document.getElementById('preview').src = foto;
+            }
+
+            document.getElementById('perfil-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const endereco = document.getElementById('endereco').value;
+                const telefone = document.getElementById('telefone').value;
+
+                localStorage.setItem('endereco', endereco);
+                localStorage.setItem('telefone', telefone);
+
+                alert('Dados salvos com sucesso!');
+                window.location.reload();
+            });
+
+            document.getElementById('foto').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('preview').src = e.target.result;
+                        localStorage.setItem('foto', e.target.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            document.getElementById('sair').addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
